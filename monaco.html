@@ -8,32 +8,39 @@
       .map(param => param.split('='))
       .reduce((o1, o2) => { o1[o2[0]] = o2[1]; return o1; }, {});
     var id = params.id;
-    var code;
+    var config = {};
     if (id) {
       var element = window.parent.document.getElementById(id);
-      code = element.getAttribute('code');
-      if (code) {
-          code = code.replace(/\\n/g, '\n')
-                     .replace(/\\r/g, '\r')
-                     .replace(/\\t/g, '\t');
-      } else {
-          var codeElement = element.querySelectorAll('.monaco-code')[0];
-          if (codeElement) {
-              code = codeElement.innerText.trim();
-          }
-      }
-      console.log(code);
+      config.code = extractCode(element, id);
+      config.language = element.getAttribute('language');
+      config.theme = element.getAttribute('theme');
     }
 
     require.config({ paths: { 'vs': 'node_modules/monaco-editor/min/vs' }});
     require(['vs/editor/editor.main'], function() {
         var editor = monaco.editor.create(document.getElementById('monaco-container'), {
-            value: code || `
-function x() {
-console.log("Hello world!");
-}`.trim(),
-            language: 'typescript',
-            theme: 'vs-dark'
+            value: config.code || ``,
+            language: config.language || 'typescript',
+            theme: config.theme || 'vs-dark'
         });
     });
+
+    function extractCode(element, id) {
+        var code = element.getAttribute('code');
+        if (code) {
+            code = code.replace(/\\n/g, '\n')
+                        .replace(/\\r/g, '\r')
+                        .replace(/\\t/g, '\t');
+        } else {
+            var codeElement = element.querySelectorAll('.monaco-code')[0];
+            if (codeElement) {
+                code = codeElement.innerHTML.trim();
+            } else {
+                console.warn('Monaco Code editor with id of ' + id + 
+                    ' has no code to display. Either use the "code" attribute on "#' + id + 
+                    '" or create a child span with class "monaco-code" to provide code for the editor.');
+            }
+        }
+        return code;
+    }
 </script>
