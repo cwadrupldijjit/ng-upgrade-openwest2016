@@ -7,24 +7,53 @@ require(['vs/editor/editor.main'], function () {
         .map(function (param) { return param.split('='); })
         .reduce(function (o1, o2) { o1[o2[0]] = o2[1]; return o1; }, {});
     var id = params.id;
-    var config = {};
+    var config = {
+        promises: [],
+        code: ''
+    };
     if (id) {
         var element = window.parent.document.getElementById(id);
+        var referenceString = element.getAttribute('reference');
+        if (referenceString) {
+            try {
+                var references = JSON.parse(referenceString);
+                references.forEach(function(reference) {
+                    config.promises.push(xhr(reference)
+                        .then(function(response) { 
+                            monaco.languages.typescript.javascriptDefaults.addExtraLib(response.responseText, reference);
+                            monaco.languages.typescript.typescriptDefaults.addExtraLib(response.responseText, reference);
+                        }, function(error) {
+                            console.warn("Error loading reference '" + reference + "': ", error);
+                        }));
+                });
+            } catch (error) {
+                console.warn('Reference value "' + referenceString + '" is not a valid JSON array. More information: ', error);
+            }
+        }
         config.code = extractCode(element, id);
         config.language = element.getAttribute('language');
         config.theme = element.getAttribute('theme');
     }
-    var editor = monaco.editor.create(document.getElementById('monaco-container'), {
-        value: config.code || "",
-        language: config.language || 'typescript',
-        theme: config.theme || 'vs-dark'
-    });
+    //var editor = load();
+    Promise.all(config.promises)
+        .then(load);
+
+    function load() {
+        editor = monaco.editor.create(document.getElementById('monaco-container'), {
+            value: config.code || "",
+            language: config.language || 'typescript',
+            theme: config.theme || 'vs-dark',
+            fontSize: 20
+        });
+    }
+
     function extractCode(element, id) {
         var code;
         var url = element.getAttribute('url');
         if (url) {
-            xhr(url)
-                .then(function (c) { return editor.setValue(c.responseText); }, function (e) { return editor.setValue("Error loading '" + url + "': " + JSON.stringify(e)); });
+            config.promises.push(xhr(url)
+                .then(function (c) { config.code = c.responseText; }, 
+                      function (e) { config.code = "Error loading '" + url + "': " + JSON.stringify(e); }));
             code = "(Loading " + url + "...)";
         }
         else {
@@ -53,7 +82,7 @@ require(['vs/editor/editor.main'], function () {
      */
     function xhr(url) {
         var req = null;
-        return new monaco.Promise(function (c, e, p) {
+        return new Promise(function (resolve, reject, p) {
             req = new XMLHttpRequest();
             req.onreadystatechange = function () {
                 if (req._canceled) {
@@ -61,15 +90,15 @@ require(['vs/editor/editor.main'], function () {
                 }
                 if (req.readyState === 4) {
                     if ((req.status >= 200 && req.status < 300) || req.status === 1223) {
-                        c(req);
+                        resolve(req);
                     }
                     else {
-                        e(req);
+                        reject(req);
                     }
                     req.onreadystatechange = function () { };
                 }
                 else {
-                    p(req);
+                    //p(req);
                 }
             };
             req.open("GET", url, true);

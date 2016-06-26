@@ -43,29 +43,33 @@
 	<span class="test">yo</span>
 </div>
 						</span>
-						<iframe src="monaco.html?id=example1" class="monaco"></iframe>
+						<iframe data-src="monaco.html?id=example1" class="monaco"></iframe>
 					</div>
 				</section>
 				<section>
 					<div class="stretch" id="example-inline" language="xml" code="<test>\n\t\n</test>">
-						<iframe src="monaco.html?id=example-inline" class="monaco"></iframe>
+						<iframe data-src="monaco.html?id=example-inline" class="monaco"></iframe>
 					</div>
 				</section>
 				<section>
+					<h1>test?</h1>
 					<div class="stretch" id="example-url" language="javascript" url="./Gruntfile.js">
-						<iframe src="monaco.html?id=example-url" class="monaco"></iframe>
+						<iframe data-src="monaco.html?id=example-url" class="monaco"></iframe>
 					</div>
 				</section>
 				<section>
-					<div class="stretch" id="example2">
-						<span class="monaco-code">
+					<div class="stretch" id="example2" reference='["test.d.ts"]'>
+						<script type="code-snippet" class="monaco-code">
+import { MyTestClass } from 'test';
+
 export class test {
 	constructor() {
 		alert('hello world!');
+		new MyTestClass().doSomething();
 	}
 }
-						</span>
-						<iframe src="monaco.html?id=example2" class="monaco"></iframe>
+						</script>
+						<iframe data-src="monaco.html?id=example2" class="monaco"></iframe>
 					</div>
 				</section>
 			</div>
@@ -79,8 +83,9 @@ export class test {
 			Reveal.initialize({
 				history: true,
 
-				width: 480,
-				height: 320,
+				width: 1200,
+				height: 800,
+				margin: .1,
 
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
