@@ -37,29 +37,49 @@
 			<div class="slides">
 				<section>Slide 1</section>
 				<section>
-					<div class="stretch" id="example1" language="html">
-						<span class="monaco-code">
+					<div class="stretch">
+						<monaco-editor language="html">
+							<script type="text/plain" class="monaco-code">
 <div>
 	<span class="test">yo</span>
 </div>
-						</span>
-						<iframe data-src="monaco.html?id=example1" class="monaco"></iframe>
+							</script>
+						</monaco-editor>
 					</div>
 				</section>
 				<section>
-					<div class="stretch" id="example-inline" language="xml" code="<test>\n\t\n</test>">
-						<iframe data-src="monaco.html?id=example-inline" class="monaco"></iframe>
+					<div class="stretch">
+						<monaco-editor language="xml" code="<test>\n\t\n</test>"></monaco-editor>
 					</div>
 				</section>
 				<section>
 					<h1>test?</h1>
-					<div class="stretch" id="example-url" language="javascript" url="./Gruntfile.js">
-						<iframe data-src="monaco.html?id=example-url" class="monaco"></iframe>
+					<div class="stretch">
+						<monaco-editor language="javascript" url="./Gruntfile.js"></monaco-editor>
 					</div>
 				</section>
 				<section>
-					<div class="stretch" id="example2" reference='["test.d.ts"]'>
-						<script type="code-snippet" class="monaco-code">
+					<div class="stretch">
+						<monaco-editor references='["test.d.ts"]'
+													 language="html">
+							<script type="text/plain" class="monaco-code">
+<ui-select ng-model="q" append-to-body="true">
+	<ui-select-match placeholder="e">
+		<b title="{{$select.selected.f}}">{{$select.selected.f | maxLength: 20}}</b>
+	</ui-select-match>
+	<ui-select-choices repeat="k in l | filter: $select.search | orderBy:'k.f'">
+		<div ng-bind-html="k.f | highlight: $select.search"></div>
+		<small ng-bind-html="k.r"></small>
+	</ui-select-choices>
+</ui-select>
+							</script>
+						</monaco-editor>
+					</div>
+				</section>
+				<section>
+					<div class="stretch">
+						<monaco-editor reference='["test.d.ts"]'>
+							<script type="text/plain" class="monaco-code">
 import { MyTestClass } from 'test';
 
 export class test {
@@ -68,8 +88,8 @@ export class test {
 		new MyTestClass().doSomething();
 	}
 }
-						</script>
-						<iframe data-src="monaco.html?id=example2" class="monaco"></iframe>
+							</script>
+						</monaco-editor>
 					</div>
 				</section>
 			</div>
@@ -86,14 +106,21 @@ export class test {
 				width: 1200,
 				height: 800,
 				margin: .1,
+				viewDistance: 2,
 
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/monaco/monaco-plugin.js', async: true },
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
+				],
+
+				monaco: {
+					theme: 'vs-dark',
+					fontSize: 20
+				}
 			});
 		</script>
 	</body>

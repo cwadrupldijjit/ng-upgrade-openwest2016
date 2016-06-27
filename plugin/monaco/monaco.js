@@ -1,5 +1,5 @@
-/// <reference path="node_modules/monaco-editor/monaco.d.ts" />
-require.config({ paths: { 'vs': 'node_modules/monaco-editor/min/vs' } });
+/// <reference path="../../node_modules/monaco-editor/monaco.d.ts" />
+require.config({ paths: { 'vs': '../../node_modules/monaco-editor/min/vs' } });
 require(['vs/editor/editor.main'], function () {
     var params = window.location.search
         .substring(1)
@@ -18,7 +18,7 @@ require(['vs/editor/editor.main'], function () {
             try {
                 var references = JSON.parse(referenceString);
                 references.forEach(function(reference) {
-                    config.promises.push(xhr(reference)
+                    config.promises.push(xhr('../../' + reference)
                         .then(function(response) { 
                             monaco.languages.typescript.javascriptDefaults.addExtraLib(response.responseText, reference);
                             monaco.languages.typescript.typescriptDefaults.addExtraLib(response.responseText, reference);
@@ -33,25 +33,28 @@ require(['vs/editor/editor.main'], function () {
         config.code = extractCode(element, id);
         config.language = element.getAttribute('language');
         config.theme = element.getAttribute('theme');
+        config.fontSize = element.getAttribute('fontSize');
     }
     //var editor = load();
     Promise.all(config.promises)
         .then(load);
 
     function load() {
-        editor = monaco.editor.create(document.getElementById('monaco-container'), {
+        var editorOptions = {
             value: config.code || "",
             language: config.language || 'typescript',
             theme: config.theme || 'vs-dark',
-            fontSize: 20
-        });
+            fontSize: config.fontSize || 20
+        };
+        console.log(editorOptions)
+        editor = monaco.editor.create(document.getElementById('monaco-container'), editorOptions);
     }
 
     function extractCode(element, id) {
         var code;
         var url = element.getAttribute('url');
         if (url) {
-            config.promises.push(xhr(url)
+            config.promises.push(xhr('../../' + url)
                 .then(function (c) { config.code = c.responseText; }, 
                       function (e) { config.code = "Error loading '" + url + "': " + JSON.stringify(e); }));
             code = "(Loading " + url + "...)";
