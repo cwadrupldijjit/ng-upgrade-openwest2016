@@ -46,7 +46,6 @@ require(['vs/editor/editor.main'], function () {
             theme: config.theme || 'vs-dark',
             fontSize: config.fontSize || 20
         };
-        console.log(editorOptions)
         editor = monaco.editor.create(document.getElementById('monaco-container'), editorOptions);
     }
 
