@@ -1,68 +1,145 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+	<title>reveal.js</title>
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
 
-		<style type="text/css">
-			.monaco-code {
-				display: none;
-			}
-			iframe.monaco {
-				width: 100%;
-				height: 100%;
-				border: 0;
-			}
-		</style>
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
+	<style type="text/css">
+		.monaco-code {
+			display: none;
+		}
+		
+		iframe.monaco-frame {
+			width: 100%;
+			height: 100%;
+			border: 0;
+		}
+	</style>
+
+	<!-- Printing and PDF exports -->
+	<script>
 			var link = document.createElement( 'link' );
 			link.rel = 'stylesheet';
 			link.type = 'text/css';
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
 				<section>
-					<div class="stretch">
-						<monaco-editor language="html">
-							<script type="text/plain" class="monaco-code">
-<div>
-	<span class="test">yo</span>
-</div>
-							</script>
-						</monaco-editor>
+					<h2>ng-upgrade</h2>
+					<p>Angular 2 for the Angular 1.x JavaScripter</p>
+				</section>
+
+				<section>
+					<h3>Samuel Skeen</h3>
+					<div>
+						<ul>
+							<li>
+								<b>Lives in:</b> Sandy, UT
+							</li>
+							<li>
+								<b>Works at:</b> Lodgable
+							</li>
+							<li>
+								<b>Experience:</b> 3 months of C++ followed by a year of HTML, CSS, and JavaScript
+							</li>
+							<li>
+								<b>Education:</b> DevMountain
+							</li>
+							<li>
+								<b>Favorite thing ever:</b> Star Wars
+							</li>
+						</ul>
 					</div>
 				</section>
 				<section>
-					<div class="stretch">
-						<monaco-editor language="xml" code="<test>\n\t\n</test>"></monaco-editor>
-					</div>
+					<h3>Get the example!</h3>
+					<p>Fork the project at: <a href="//github.com/cwadrupldijjit/ng-1-openwest2016">https://github.com/cwadrupldijjit/ng-1-openwest2016</a></p>
+					<p><code>git clone git://github.com/&lt;username&gt;/ng-1-openwest2016</code></p>
+					<p><code>cd ./ng-1-openwest2016</code></p>
+				</section>
+			</section>
+
+			<section>
+				<!-- Ask questions: Who has worked with angular 2?  ng-upgrade?  Other webdevelopment, not Angular?  -->
+				<img src="assets/angularjs-logo-trans.png" style="background-color: transparent; box-shadow: none; border: none; height: 300px;">
+				<img src="assets/shield-with-beta.png" style="background-color: transparent; box-shadow: none; border: none; height: 300px; margin-left: 100px;">
+			</section>
+			
+			<section>
+				<h1>First, a bit about Angular</h1>
+			</section>
+			
+			<section>
+				<h3>What is Angular?</h3>
+				<section>
+					<h5>History:</h5>
+					<ul>
+						<li>Created in 2009 by Miško Hevery as a concept for online JSON storage</li>
+						<li>Venture failed, Google started backing it</li>
+						<li>Per <a href="//libscore.com/#?angular">Libscore</a> (as of Jul 15, 2016), Angular is being used in 12,084 sites on the internet</li>
+						<li>As of September </li>
+					</ul>
 				</section>
 				<section>
-					<h1>test?</h1>
+					<h5>What it does:</h5>
+					<ul>
+						<li>
+							MVC (Model-View-Controller) framework
+							<ul>
+								<li>Model (Service/Provider) does the business logic, XHRs, temporary store of state</li>
+								<li>View (template) holds the UI and necessary data</li>
+								<li>Controller holds the data bound to the view and manages UI elements</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+			</section>
+			
+			<section>
+				<h1>Now for the code</h1>
+			</section>
+			
+			<!--<section>
+				<section>
+					<h3>Bootstrap it</h3>
 					<div class="stretch">
-						<monaco-editor language="javascript" url="./Gruntfile.js"></monaco-editor>
+						<monaco-editor language="javascript" url="./upgrade-code/ng-public/app/app.module.js"></monaco-editor>
 					</div>
 				</section>
-				<section>
-					<div class="stretch">
-						<monaco-editor references='["test.d.ts"]'
-													 language="html">
-							<script type="text/plain" class="monaco-code">
+			</section>
+
+			<section>
+				<div class="stretch">
+					<monaco-editor language="xml" code="<test>\n\t\n</test>"></monaco-editor>
+				</div>
+			</section>
+
+			<section>
+				<h1>test?</h1>
+				<div class="stretch">
+					<monaco-editor language="html" url="./upgrade-code/ng-public/index.html"></monaco-editor>
+				</div>
+			</section>
+
+			<section>
+				<div class="stretch">
+					<monaco-editor references='["test.d.ts"]' language="html">
+						<script type="text/plain" class="monaco-code">
 <ui-select ng-model="q" append-to-body="true">
 	<ui-select-match placeholder="e">
 		<b title="{{$select.selected.f}}">{{$select.selected.f | maxLength: 20}}</b>
@@ -73,13 +150,14 @@
 	</ui-select-choices>
 </ui-select>
 							</script>
-						</monaco-editor>
-					</div>
-				</section>
-				<section>
-					<div class="stretch">
-						<monaco-editor reference='["test.d.ts"]'>
-							<script type="text/plain" class="monaco-code">
+					</monaco-editor>
+				</div>
+			</section>
+
+			<section>
+				<div class="stretch">
+					<monaco-editor reference='["test.d.ts"]'>
+						<script type="text/plain" class="monaco-code">
 import { MyTestClass } from 'test';
 
 export class test {
@@ -89,16 +167,30 @@ export class test {
 	}
 }
 							</script>
-						</monaco-editor>
-					</div>
-				</section>
-			</div>
+					</monaco-editor>
+				</div>
+			</section>-->
+			
+			<section>
+				<h3>Thank You!</h3>
+				<div>
+					<p>@cwadrupldijjit</p>
+					<p><a href="mailto:sskeen9@gmail.com">sskeen9@gmail.com</a></p>
+					<p><a href="https://github.com/cwadrupldijjit">https://github.com/cwadrupldijjit</a></p>
+					<p><a href="http://cwadrupldijjit.com">http://cwadrupldijjit.com</a></p>
+				</div>
+				<h5>Slides:</h5>
+				<p><a href="http://github.com/cwadrupldijjit/ng-upgrade-openwest2016">http://github.com/cwadrupldijjit/ng-upgrade-openwest2016</a></p>
+				<h5>Feedback:</h5>
+				<p><a href="https://joind.in/talk/3acac">https://joind.in/talk/3acac</a></p>
+			</section>
 		</div>
+	</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
 
-		<script>
+	<script>
 			// More info https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
 				history: true,
@@ -123,5 +215,6 @@ export class test {
 				}
 			});
 		</script>
-	</body>
+</body>
+
 </html>
